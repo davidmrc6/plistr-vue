@@ -13,7 +13,7 @@ app.use(cookieParser());
 
 const CLIENT_ID = process.env.VITE_SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
-const REDIRECT_URI = "https://localhost:3000/callback";
+const REDIRECT_URI = process.env.REDIRECT_URI;
 
 app.get("/callback", async (req, res) => {
   const code = req.query.code;

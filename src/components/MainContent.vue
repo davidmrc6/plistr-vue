@@ -1,6 +1,8 @@
 <script setup lang="ts">
+  import { Icon } from "@iconify/vue";
+
   const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-  const redirectUri = "https://localhost:3000/callback";
+  const redirectUri = import.meta.env.REDIRECT_URI;
   const scopes = [
     "user-read-private",
     "user-read-email",
