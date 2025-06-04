@@ -49,7 +49,7 @@
         <h1
           class="text-4xl md:text-6xl text-stone-800 lowercase tracking-tight leading-tight font-semibold"
         >
-          <a :href="userProfile?.uri" class="font-serif font-thin text-teal-600 underline">{{
+          <a :href="userProfile?.uri" class="font-serif font-thin text-teal-600 underline italic">{{
             userProfile?.display_name
           }}</a
           >'s playlists

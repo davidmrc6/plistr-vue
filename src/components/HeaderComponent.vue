@@ -2,7 +2,7 @@
   <header class="pt-8 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="flex justify-between items-center">
-        <h1 class="text-3xl font-medium text-gray-900 lowercase tracking-wide font-serif">
+        <h1 class="text-3xl font-medium text-gray-900 lowercase font-serif">
           plistr
         </h1>
       </div>

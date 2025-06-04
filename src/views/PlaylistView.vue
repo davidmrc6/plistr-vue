@@ -1,12 +1,13 @@
 <script setup lang="ts">
   import { useRoute } from "vue-router";
   import ShaderBackground from "@/components/background/ShaderBackground.vue";
-  import HeaderComponent from "@/components/HeaderComponent.vue";
   import { onMounted, ref } from "vue";
   import { getStoredAccessToken, logout } from "@/utils/spotifyAuth.ts";
   import type { PlaylistObject, UserProfile } from "@/types/spotifyTypes.ts";
   import { fetchPlaylist, fetchProfile } from "@/utils/spotifyApi.ts";
   import NavigationBar from "@/components/NavigationBar.vue";
+  import FooterComponent from "@/components/FooterComponent.vue";
+  import PlaylistTrackItem from "@/components/PlaylistTrackItem.vue";
 
   const route = useRoute();
   const playlistId = route.params.id as string;
@@ -43,7 +44,50 @@
           <span class="font-serif text-teal-600 italic font-light mr-4">playlist </span>
           {{ playlist?.name }}
         </h1>
+
+        <!-- playlist content -->
+        <div class="mt-12 flex gap-12">
+          <!-- left side: playlist image and description -->
+          <div class="w-[400px] flex-shrink-0">
+            <div class="aspect-square w-full overflow-hidden rounded-xl shadow-xl">
+              <img
+                :src="playlist?.images[0]?.url"
+                :alt="playlist?.name"
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <div class="mt-6 space-y-4">
+              <p class="text-stone-600 text-lg leading-relaxed">
+                {{ playlist?.description }}
+              </p>
+
+              <div class="flex gap-2">
+                <span class="px-3 py-1 bg-stone-100 text-stone-600 rounded-full text-sm">
+                  {{ playlist?.tracks.total }} tracks
+                </span>
+                <span class="px-3 py-1 bg-stone-100 text-stone-600 rounded-full text-sm">
+                  {{ playlist?.followers.total }} followers
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- right side: track list -->
+          <div class="flex-1">
+            <div class="space-y-2">
+              <PlaylistTrackItem
+                v-for="(item, index) in playlist?.tracks.items"
+                :key="item.track.id"
+                :track="item"
+                :index="index"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </main>
+
+    <FooterComponent />
   </div>
 </template>

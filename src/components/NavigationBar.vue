@@ -29,14 +29,14 @@
   <nav class="pt-8 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="flex justify-between items-center">
-        <h1 class="text-3xl font-medium text-gray-900 lowercase tracking-wide font-serif">
+        <h1 class="text-3xl font-medium text-gray-900 lowercase  font-serif">
           plistr
         </h1>
         <div class="flex items-center">
           <div
             @click="navigateToPlaylists"
             :class="[
-              'text-xl font-medium lowercase tracking-wide font-sans cursor-pointer transition-colors duration-200 mr-4 hover:text-teal-600',
+              'text-xl font-medium lowercase font-sans cursor-pointer transition-colors duration-200 mr-4 hover:text-teal-600',
               { 'text-teal-600 font-bold': isPlaylistsActive, 'text-gray-600': !isPlaylistsActive }
             ]"
           >
@@ -45,7 +45,7 @@
           <div
             @click="navigateToRecommendations"
             :class="[
-              'text-xl font-medium lowercase tracking-wide font-sans cursor-pointer transition-colors duration-200 mr-6 hover:text-teal-600',
+              'text-xl font-medium lowercase font-sans cursor-pointer transition-colors duration-200 mr-6 hover:text-teal-600',
               { 'text-teal-600 font-bold': isRecommendationsActive, 'text-gray-600': !isRecommendationsActive }
             ]"
           >
