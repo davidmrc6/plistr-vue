@@ -2,6 +2,7 @@ import type {
   SimplifiedPlaylistObject,
   UserProfile,
   SpotifyPaging,
+  PlaylistObject,
 } from "@/types/spotifyTypes";
 
 export async function fetchProfile(token: string): Promise<UserProfile> {
@@ -42,4 +43,25 @@ export async function fetchPlaylists(
   }
 
   return allPlaylists;
+}
+
+export async function fetchPlaylist(
+  token: string,
+  playlistId: string,
+): Promise<PlaylistObject> {
+  const res = await fetch(
+    `https://api.spotify.com/v1/playlists/${playlistId}`,
+    {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch playlist: ${res.status} ${res.statusText}`,
+    );
+  }
+
+  return await res.json();
 }

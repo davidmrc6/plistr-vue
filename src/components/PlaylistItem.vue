@@ -1,15 +1,25 @@
 <script setup lang="ts">
   import { defineProps } from "vue";
   import type { SimplifiedPlaylistObject } from "@/types/spotifyTypes";
-  import { Icon } from '@iconify/vue';
+  import { Icon } from "@iconify/vue";
+  import { useRouter } from "vue-router";
+
+  const router = useRouter();
 
   defineProps<{
     playlist: SimplifiedPlaylistObject;
   }>();
+
+  async function navigateToPlaylist(id: string) {
+    await router.push(`/playlists/${id}`);
+  }
 </script>
 
 <template>
-  <div class="mb-8 backdrop-blur-2xl bg-white/30 w-[400px] h-[400px] border border-transparent hover:border-gray-200 transition-all duration-300 ease-in-out rounded-xl overflow-hidden group flex flex-col">
+  <div
+    class="mb-8 backdrop-blur-2xl bg-white/30 w-[400px] h-[400px] border border-transparent hover:cursor-pointer hover:border-gray-200 transition-all duration-300 ease-in-out rounded-xl overflow-hidden group flex flex-col"
+    @click="navigateToPlaylist(playlist.id)"
+  >
     <!-- Playlist Image -->
     <div class="relative w-full h-64 overflow-hidden">
       <img
@@ -34,7 +44,7 @@
     <!-- Playlist Info -->
     <div class="p-6 flex flex-col justify-between flex-1">
       <div>
-        <h3 class="text-2xl font-semibold text-stone-800 truncate font-sans tracking-tight">
+        <h3 class="text-3xl font-semibold text-stone-800 truncate font-sans tracking-tight">
           {{ playlist.name }}
         </h3>
         <p class="text-stone-600 mt-2 flex items-center gap-2 font-sans">
@@ -42,10 +52,7 @@
           {{ playlist.tracks.total }} tracks
         </p>
       </div>
-      <p
-        v-if="playlist.description"
-        class="text-stone-500 mt-2 line-clamp-2 text-sm font-sans"
-      >
+      <p v-if="playlist.description" class="text-stone-500 mt-2 line-clamp-2 text-sm font-sans">
         {{ playlist.description }}
       </p>
     </div>

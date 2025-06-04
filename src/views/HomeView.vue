@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import ShaderBackground from "@/components/background/ShaderBackground.vue";
   import FooterComponent from "@/components/FooterComponent.vue";
-  import HeaderComponent from "@/components/HeaderComponent.vue";
   import { getStoredAccessToken } from "@/utils/spotifyAuth";
 
   import { onMounted, ref } from "vue";
@@ -12,11 +11,14 @@
   import { fetchPlaylists, fetchProfile } from "@/utils/spotifyApi";
   import { logout } from "@/utils/spotifyAuth";
   import PlaylistItem from "@/components/PlaylistItem.vue";
+  import PlaylistItemSkeleton from "@/components/skeletons/PlaylistItemSkeleton.vue";
+  import NavigationBar from "@/components/NavigationBar.vue";
 
   let token;
 
   const userProfile = ref<UserProfile | null>(null);
   const userPlaylists = ref<SimplifiedPlaylistObject[]>([]);
+  const isLoading = ref(false);
 
   onMounted(async () => {
     token = getStoredAccessToken();
@@ -27,7 +29,10 @@
     }
 
     userProfile.value = await fetchProfile(token);
+
+    isLoading.value = true;
     userPlaylists.value = await fetchPlaylists(token);
+    isLoading.value = false;
   });
 </script>
 
@@ -35,7 +40,7 @@
   <ShaderBackground />
 
   <div class="relative min-h-screen flex flex-col">
-    <HeaderComponent :user-profile="userProfile" />
+    <NavigationBar :user-profile="userProfile" />
     <main
       class="flex-1 flex px-6 max-w-[82rem] mx-auto w-full overflow-y-auto mt-12"
     >
@@ -51,12 +56,17 @@
         </h1>
 
         <!-- playlists -->
-        <div class="grid w-full grid-cols-[auto_auto_auto] justify-between mt-16">
-          <PlaylistItem
-            v-for="playlist in userPlaylists"
-            :key="playlist.id"
-            :playlist="playlist"
-          />
+        <div class="grid w-full grid-cols-3 gap-6 mt-16">
+          <template v-if="isLoading">
+            <PlaylistItemSkeleton v-for="i in 6" :key="i" />
+          </template>
+          <template v-else>
+            <PlaylistItem
+              v-for="playlist in userPlaylists"
+              :key="playlist.id"
+              :playlist="playlist"
+            />
+          </template>
         </div>
       </div>
     </main>

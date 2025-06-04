@@ -19,7 +19,7 @@
 
   <div class="relative min-h-screen flex flex-col text-sans">
     <HeaderComponent />
-    <main class="flex-1 flex items-center justify-center px-6 -mt-8">
+    <main class="flex-1 flex items-center justify-center px-6 mt-8">
       <div class="text-center max-w-2xl mx-auto space-y-8">
         <div class="space-y-6">
           <h2
