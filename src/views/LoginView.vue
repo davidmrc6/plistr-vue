@@ -23,12 +23,12 @@
       <div class="text-center max-w-2xl mx-auto space-y-8">
         <div class="space-y-6">
           <h2
-            class="text-6xl md:text-8xl text-gray-900 lowercase tracking-tight leading-tight font-semibold"
+            class="text-6xl md:text-8xl text-stone-800 lowercase tracking-tight leading-tight font-semibold"
           >
-            connect your music
+            connect <span class="font-serif font-thi text-teal-600">your</span> music
           </h2>
           <p
-            class="text-lg text-gray-600 font-normal leading-relaxed tracking-tight"
+            class="text-lg text-stone-600 font-normal leading-relaxed tracking-tight"
           >
             access your spotify playlists and discover new ways to enjoy your
             music
