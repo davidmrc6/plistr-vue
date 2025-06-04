@@ -37,13 +37,25 @@
     <NavigationBar :user-profile="userProfile" />
     <main class="flex-1 flex px-6 max-w-[82rem] mx-auto w-full overflow-y-auto mt-12">
       <div class="w-full mx-auto mt-8 flex flex-col">
-        <!-- header -->
-        <h1
-          class="text-4xl md:text-6xl text-stone-800 lowercase tracking-tight leading-tight font-semibold"
-        >
-          <span class="font-serif text-teal-600 italic font-light mr-4">playlist </span>
-          {{ playlist?.name }}
-        </h1>
+        <div class="w-full flex flex-row justify-between items-center">
+          <!-- header -->
+          <h1
+            class="text-4xl md:text-6xl text-stone-800 lowercase tracking-tight leading-tight font-semibold"
+          >
+            <span class="font-serif text-teal-600 italic font-light mr-4">playlist </span>
+            {{ playlist?.name }}
+          </h1>
+
+          <!-- choose view option -->
+          <div class="flex items-center gap-2 bg-stone-100/50 backdrop-blur-sm rounded-full px-1 py-1">
+            <button class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors">
+              compact
+            </button>
+            <button class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors">
+              detailed
+            </button>
+          </div>
+        </div>
 
         <!-- playlist content -->
         <div class="mt-12 flex gap-12">
