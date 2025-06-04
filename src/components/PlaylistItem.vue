@@ -1,0 +1,44 @@
+<script setup lang="ts">
+  import { defineProps } from "vue";
+  import type { SimplifiedPlaylistObject } from "@/types/spotifyTypes";
+  import { Icon } from '@iconify/vue';
+
+  defineProps<{
+    playlist: SimplifiedPlaylistObject;
+  }>();
+</script>
+
+<template>
+  <div class="mb-8 backdrop-blur-2xl bg-white/20 w-[400px] h-[400px] border border-transparent hover:border-gray-200 transition-all duration-300 ease-in-out rounded-xl overflow-hidden group">
+    <!-- Playlist Image -->
+    <div class="relative w-full h-64 overflow-hidden">
+      <img
+        v-if="playlist.images"
+        :src="playlist.images[0]?.url"
+        :alt="playlist.name"
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+      <!-- Status Indicators -->
+      <div class="absolute top-4 right-4 flex gap-2">
+        <div v-if="playlist.collaborative" class="bg-black/50 backdrop-blur-sm p-2 rounded-full">
+          <Icon icon="mdi:account-group" class="w-5 h-5 text-white" />
+        </div>
+        <div v-if="playlist.public" class="bg-black/50 backdrop-blur-sm p-2 rounded-full">
+          <Icon icon="mdi:earth" class="w-5 h-5 text-white" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Playlist Info -->
+    <div class="p-6">
+      <h3 class="text-2xl font-semibold text-gray-900 truncate font-sans tracking-tight ">{{ playlist.name }}</h3>
+      <p class="text-gray-600 mt-2 flex items-center gap-2 font-sas">
+        <Icon icon="mdi:music-note" class="w-5 h-5" />
+        {{ playlist.tracks.total }} tracks
+      </p>
+      <p v-if="playlist.description" class="text-gray-500 mt-2 line-clamp-2 text-sm">
+        {{ playlist.description }}
+      </p>
+    </div>
+  </div>
+</template>
