@@ -63,14 +63,14 @@ export async function getAccessToken(
 }
 
 export function isAuthenticated(): boolean {
-  return !!localStorage.getItem("spotify_access_token");
+  return !!sessionStorage.getItem("spotify_access_token");
 }
 
 export function getStoredAccessToken(): string | null {
-  return localStorage.getItem("spotify_access_token");
+  return sessionStorage.getItem("spotify_access_token");
 }
 
 export function logout(): void {
-  localStorage.removeItem("spotify_access_token");
+  sessionStorage.removeItem("spotify_access_token");
   localStorage.removeItem("verifier");
 }

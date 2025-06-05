@@ -13,15 +13,15 @@
   const isPlaylistsActive = computed(
     () => route.path === "/" || route.path === "/playlists"
   );
-  const isRecommendationsActive = computed(
-    () => route.path === "/recommendations"
+  const isDiscoverActive = computed(
+    () => route.path === "/discover"
   );
 
   async function navigateToPlaylists() {
     await router.push("/playlists");
   }
-  async function navigateToRecommendations() {
-    await router.push("/recommendations");
+  async function navigateToDiscover() {
+    await router.push("/discover");
   }
 </script>
 
@@ -43,10 +43,10 @@
             playlists
           </div>
           <div
-            @click="navigateToRecommendations"
+            @click="navigateToDiscover"
             :class="[
               'text-xl font-medium lowercase font-sans cursor-pointer transition-colors duration-200 mr-6 hover:text-teal-600',
-              { 'text-teal-600 font-bold': isRecommendationsActive, 'text-gray-600': !isRecommendationsActive }
+              { 'text-teal-600 font-bold': isDiscoverActive, 'text-gray-600': !isDiscoverActive }
             ]"
           >
             discover

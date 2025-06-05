@@ -1,39 +1,62 @@
 # plistr
 
-This template should help get you started developing with Vue 3 in Vite.
+A web application for viewing, sorting, and adding new music to your Spotify playlists. Built on top of the
+[Spotify Web API](https://developer.spotify.com/documentation/web-api).
 
-## Recommended IDE Setup
+## Overview
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+plistr is a modern web application that helps Spotify users manage their playlists more effectively. The application is built using Vue 3 and TypeScript, providing a robust and type-safe development environment.
 
-## Type Support for `.vue` Imports in TS
+> **Note:** The main idea behind this web application was to allow users to sort and visualize their playlists based
+> on the `audio-features` endpoint provided by the [Spotify Web API](https://developer.spotify.com/documentation/web-api).
+> It was during development when I found out that this endpoint is actually deprecated, rendering that feature
+> impossible to implement for now. This is why I will stop actively working on this application unless I can find
+> a similar alternative, which I find quite unlikely at this moment in time.
+> 
+![login_screen.png](public/login_screen.png)
+> 
+![home_view.png](public/home_view.png)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+![playlist_view.png](public/playlist_view.png)
 
-## Customize configuration
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Setup
 
-## Project Setup
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/plistr-vue.git
+   cd plistr-vue
+   ```
 
-```sh
-npm install
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### Compile and Hot-Reload for Development
+3. Create a `.env` file in the root directory with your Spotify API credentials:
+   ```
+   VITE_SPOTIFY_CLIENT_ID=your_client_id
+   VITE_SPOTIFY_CLIENT_SECRET=your_client_secret
+   VITE_SPOTIFY_REDIRECT_URI=your_redirect_uri
+   ```
 
-```sh
-npm run dev
-```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-### Type-Check, Compile and Minify for Production
 
-```sh
-npm run build
-```
 
-### Lint with [ESLint](https://eslint.org/)
+## Contributing
 
-```sh
-npm run lint
-```
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [Spotify Web API](https://developer.spotify.com/documentation/web-api)
+- [Vue.js](https://vuejs.org/)
+- [Vite](https://vitejs.dev/)

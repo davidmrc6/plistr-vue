@@ -94,7 +94,7 @@ ok
                 <Icon icon="mdi:playlist-play" class="w-5 h-5" />
               </div>
               <div class="w-12"></div>
-              <div class="flex-1">Title</div>
+              <div class="flex-1">title</div>
               <div class="text-stone-400">
                 <Icon icon="mdi:clock-outline" class="w-5 h-5" />
               </div>
@@ -110,7 +110,7 @@ ok
               <img
                 :src="playlist?.images[0]?.url"
                 :alt="playlist?.name"
-                class="w-full h-full object-cover"
+                class="w-full h-full object-cover border-none"
               />
             </div>
 

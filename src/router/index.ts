@@ -5,6 +5,7 @@ import LoginView from "@/views/LoginView.vue";
 import HomeView from "@/views/HomeView.vue";
 import CallbackView from "@/views/CallbackView.vue";
 import PlaylistView from "@/views/PlaylistView.vue";
+import DiscoverView from "@/views/DiscoverView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +34,12 @@ const router = createRouter({
       path: "/playlists/:id",
       name: "playlist",
       component: PlaylistView,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/discover",
+      name: "discover",
+      component: DiscoverView,
       meta: { requiresAuth: true },
     },
   ],

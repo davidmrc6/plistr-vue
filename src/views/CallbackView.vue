@@ -2,6 +2,7 @@
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { getAccessToken } from '@/utils/spotifyAuth';
+import ShaderBackground from "@/components/background/ShaderBackground.vue";
 
 const router = useRouter();
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID as string;
@@ -10,7 +11,7 @@ const code = params.get('code');
 
 onMounted(async () => {
   if (!code) {
-    router.push('/login');
+    await router.push('/login');
     return;
   }
 
@@ -18,21 +19,23 @@ onMounted(async () => {
     const accessToken = await getAccessToken(clientId, code);
     // Store the access token
     // TODO add access token expiry
-    localStorage.setItem('spotify_access_token', accessToken);
+    sessionStorage.setItem('spotify_access_token', accessToken);
     // Redirect to home page
-    router.push('/');
+    await router.push('/');
   } catch (error) {
     console.error('Error getting access token:', error);
-    router.push('/login');
+    await router.push('/login');
   }
 });
 </script>
 
 <template>
+  <ShaderBackground />
+
   <div class="min-h-screen flex items-center justify-center">
     <div class="text-center">
-      <h2 class="text-xl font-semibold text-gray-900">Connecting to Spotify...</h2>
-      <p class="mt-2 text-gray-600">Please wait while we complete the authentication process.</p>
+      <h2 class="text-xl font-semibold text-gray-900">connecting to Spotify...</h2>
+      <p class="mt-2 text-gray-600">please wait while we complete the authentication process.</p>
     </div>
   </div>
 </template>
