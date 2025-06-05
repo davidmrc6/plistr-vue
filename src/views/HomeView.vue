@@ -56,7 +56,7 @@
         </h1>
 
         <!-- playlists -->
-        <div class="grid w-full grid-cols-3 gap-6 mt-16">
+        <div class="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-16">
           <template v-if="isLoading">
             <PlaylistItemSkeleton v-for="i in 6" :key="i" />
           </template>
