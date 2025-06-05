@@ -1,3 +1,4 @@
+ok
 <script setup lang="ts">
   import { useRoute } from "vue-router";
   import ShaderBackground from "@/components/background/ShaderBackground.vue";
@@ -8,6 +9,9 @@
   import NavigationBar from "@/components/NavigationBar.vue";
   import FooterComponent from "@/components/FooterComponent.vue";
   import PlaylistTrackItem from "@/components/PlaylistTrackItem.vue";
+  import type { TrackViewType } from "@/types/miscTypes.ts";
+  import { Icon } from "@iconify/vue";
+  import PlaylistViewSkeleton from "@/components/skeletons/PlaylistViewSkeleton.vue";
 
   const route = useRoute();
   const playlistId = route.params.id as string;
@@ -16,8 +20,14 @@
 
   const userProfile = ref<UserProfile | null>(null);
   const playlist = ref<PlaylistObject | null>(null);
+  const isPlaylistLoading = ref(true);
+
+  const activeViewType = ref<TrackViewType>("compact");
 
   onMounted(async () => {
+    // Reset scroll position
+    window.scrollTo(0, 0);
+
     token = getStoredAccessToken();
 
     if (!token) {
@@ -27,6 +37,7 @@
 
     userProfile.value = await fetchProfile(token);
     playlist.value = await fetchPlaylist(token, playlistId);
+    isPlaylistLoading.value = false;
   });
 </script>
 
@@ -35,30 +46,64 @@
 
   <div class="relative min-h-screen flex flex-col">
     <NavigationBar :user-profile="userProfile" />
-    <main class="flex-1 flex px-6 max-w-[82rem] mx-auto w-full overflow-y-auto mt-12">
+
+    <PlaylistViewSkeleton v-if="isPlaylistLoading" />
+
+    <main v-else class="flex-1 flex px-6 max-w-[82rem] mx-auto w-full overflow-y-auto mt-12">
       <div class="w-full mx-auto mt-8 flex flex-col">
         <div class="w-full flex flex-row justify-between items-center">
           <!-- header -->
           <h1
-            class="text-4xl md:text-6xl text-stone-800 lowercase tracking-tight leading-tight font-semibold"
+            class="text-4xl md:text-6xl w-3/4 text-stone-800 lowercase tracking-tight leading-tight font-semibold"
           >
             <span class="font-serif text-teal-600 italic font-light mr-4">playlist </span>
             {{ playlist?.name }}
           </h1>
+        </div>
 
-          <!-- choose view option -->
-          <div class="flex items-center gap-2 bg-stone-100/50 backdrop-blur-sm rounded-full px-1 py-1">
-            <button class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors">
-              compact
-            </button>
-            <button class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:text-stone-800 transition-colors">
-              detailed
-            </button>
+        <!-- choose view option -->
+        <div class="flex items-center self-end gap-2 px-1 py-1 text-sm font-medium mt-2">
+          <span class="font-light italic">view:</span>
+          <button
+            class="px-2 py-2 rounded-full transition-colors"
+            :class="{
+              'font-bold text-teal-600': activeViewType === 'compact',
+              'hover:text-stone-800 text-stone-600': activeViewType !== 'compact',
+            }"
+          >
+            compact
+          </button>
+          <div class="bg-stone-600 w-px h-4 self-center" />
+          <button
+            class="px-2 py-2 rounded-full transition-colors"
+            :class="{
+              'font-bold text-teal-600': activeViewType === 'detailed',
+              'hover:text-stone-800 text-stone-600': activeViewType !== 'detailed',
+            }"
+          >
+            detailed
+          </button>
+        </div>
+
+        <!-- Column headers -->
+        <div class="flex gap-12 mt-4">
+          <div class="w-[400px]"></div>
+          <div class="flex-1">
+            <div class="flex items-center gap-4 px-4 py-2 text-stone-400 text-sm font-medium">
+              <div class="w-8 flex justify-end">
+                <Icon icon="mdi:playlist-play" class="w-5 h-5" />
+              </div>
+              <div class="w-12"></div>
+              <div class="flex-1">Title</div>
+              <div class="text-stone-400">
+                <Icon icon="mdi:clock-outline" class="w-5 h-5" />
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- playlist content -->
-        <div class="mt-12 flex gap-12">
+        <div class="flex gap-12 mt-2">
           <!-- left side: playlist image and description -->
           <div class="w-[400px] flex-shrink-0">
             <div class="aspect-square w-full overflow-hidden rounded-xl shadow-xl">
@@ -69,19 +114,22 @@
               />
             </div>
 
-            <div class="mt-6 space-y-4">
-              <p class="text-stone-600 text-lg leading-relaxed">
-                {{ playlist?.description }}
-              </p>
-
+            <div class="mt-6 space-y-4 flex flex-col items-center font-sans">
+              <!-- tracks, followers -->
               <div class="flex gap-2">
-                <span class="px-3 py-1 bg-stone-100 text-stone-600 rounded-full text-sm">
+                <span class="px-3 py-1 text-stone-600 rounded-full text-sm">
                   {{ playlist?.tracks.total }} tracks
                 </span>
-                <span class="px-3 py-1 bg-stone-100 text-stone-600 rounded-full text-sm">
+                <div class="bg-stone-600 w-px h-4 self-center" />
+                <span class="px-3 py-1 text-stone-600 rounded-full text-sm">
                   {{ playlist?.followers.total }} followers
                 </span>
               </div>
+
+              <!-- description -->
+              <p class="text-stone-800 text-md leading-relaxed">
+                {{ playlist?.description }}
+              </p>
             </div>
           </div>
 

@@ -25,7 +25,7 @@
           <h2
             class="text-6xl md:text-8xl text-stone-800 lowercase tracking-tight leading-tight font-semibold"
           >
-            connect <span class="font-serif font-thi text-teal-600">your</span> music
+            connect <span class="font-serif font-thi text-teal-600 italic">your</span> music
           </h2>
           <p
             class="text-lg text-stone-600 font-normal leading-relaxed tracking-tight"
